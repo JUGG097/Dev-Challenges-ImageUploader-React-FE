@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const StyledUploadSuccess = styled.div`
+const StyledUploadSuccess = styled.div<{
+	image_link: string;
+}>`
 	padding: 5px 10px;
 
 	.upload-success {
@@ -19,7 +21,8 @@ const StyledUploadSuccess = styled.div`
 			height: 250px;
 			border: 1px solid #e0e0e0;
 			border-radius: 12px;
-			background-image: url(/img/image.svg);
+			/* background-image: url(/img/image.svg); */
+			background-image: ${(props) => `url(${props.image_link})`};
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: 100%;
