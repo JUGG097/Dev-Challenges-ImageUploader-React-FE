@@ -55,7 +55,7 @@ const UploadPage = () => {
 		// fileRejections.forEach((file) => console.log(file));
 		// console.log("toast fire");
 
-		error("Invalid File Format");
+		error("Invalid File Format or File Size");
 	};
 
 	const {
@@ -70,6 +70,7 @@ const UploadPage = () => {
 		accept: {
 			"image/*": [".jpeg", ".png", ".jpg"],
 		},
+		maxSize: 5 * 1024 * 1024,
 		onDropAccepted,
 		onDropRejected,
 	});
@@ -77,14 +78,17 @@ const UploadPage = () => {
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		let files = e.target.files;
 		let file = files?.item(0);
+		const maxAllowedSize = 5 * 1024 * 1024; // Max size of 5mb
 		// console.log(file);
 
 		if (file !== undefined && file !== null) {
-			// Validate file type
+			// Validate file type and File size
 			if (
 				!["image/png", "image/jpeg", "image/jpg"].includes(file?.type)
 			) {
 				error("Invalid File Format");
+			} else if (file?.size > maxAllowedSize) {
+				error("File Size exceeds maximum allowed size");
 			} else {
 				handleImageUpload(file);
 			}
@@ -102,7 +106,7 @@ const UploadPage = () => {
 					) : (
 						<div className="file-upload">
 							<h3>Upload your image</h3>
-							<p>File should be jpeg, jpg or png...</p>
+							<p>File should be jpeg, jpg or png... (max 5mb)</p>
 							<StyledDropZone
 								{...getRootProps({
 									isFocused,
