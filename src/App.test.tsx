@@ -22,7 +22,7 @@ describe("Landing Page Rendering", () => {
 
 	test("Drag and Drop box is rendered correctly", () => {
 		render(<App />);
-		expect(screen.getByRole("presentation")).toBeInTheDocument();
+		expect(screen.queryByRole("presentation")).not.toBeInTheDocument();
 	});
 
 	test("Manual File Upload Label is rendered correctly", () => {
